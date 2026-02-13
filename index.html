@@ -2,30 +2,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Mở Shopee</title>
+<title>Opening Shopee...</title>
+
+<script>
+var shopeeLink = "https://s.shopee.vn/20pxqttOxH";
+
+// Thử mở app bằng deep link
+function openShopee() {
+
+    // Android intent
+    window.location.href = "intent://s.shopee.vn/20pxqttOxH#Intent;scheme=https;package=com.shopee.vn;end;";
+
+    // Fallback nếu intent bị chặn
+    setTimeout(function() {
+        window.location.href = shopeeLink;
+    }, 1500);
+}
+
+window.onload = openShopee;
+</script>
+
 </head>
 
 <body style="text-align:center; margin-top:80px; font-family:sans-serif;">
-
-<h2>Nhấn nút bên dưới để mở Shopee</h2>
-
-<button onclick="openApp()" style="padding:15px 25px; font-size:18px;">
+<h2>Đang mở Shopee...</h2>
+<p>Nếu không tự mở, hãy bấm nút bên dưới</p>
+<button onclick="openShopee()" style="padding:12px 25px; font-size:16px;">
 MỞ SHOPEE
 </button>
-
-<script>
-function openApp() {
-    var link = "https://s.shopee.vn/20pxqttOxH";
-
-    // Thử mở app trước
-    window.location.href = link;
-
-    // Nếu không có app thì vẫn mở web
-    setTimeout(function() {
-        window.location.href = link;
-    }, 1500);
-}
-</script>
-
 </body>
 </html>
