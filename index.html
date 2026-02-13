@@ -1,30 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>PRE-Client — Parallel Redirect Engine</title>
-  <script>
-    const iosLink = "https://s.shopee.vn/20pxqttOxH";
-
-    const androidIntent = "intent://s.shopee.vn/20pxqttOxH#Intent;scheme=https;package=com.shopee.vn;end;";
-
-    function openApp() {
-      const ua = navigator.userAgent.toLowerCase();
-
-      if (ua.includes("android")) {
-        window.location.href = androidIntent;
-      } else {
-        window.location.href = iosLink;
-      }
-    }
-
-    window.onload = openApp;
-  </script>
+<meta charset="UTF-8">
+<title>Mở Shopee</title>
 </head>
-<body style="text-align:center; margin-top:50px; font-family:sans-serif;">
-  <h2>Đang mở Shopee...</h2>
-  <button onclick="openApp()" style="padding:10px 20px; font-size:16px;">
-    Mở thủ công
-  </button>
+
+<body style="text-align:center; margin-top:80px; font-family:sans-serif;">
+
+<h2>Nhấn nút bên dưới để mở Shopee</h2>
+
+<button onclick="openApp()" style="padding:15px 25px; font-size:18px;">
+MỞ SHOPEE
+</button>
+
+<script>
+function openApp() {
+    var link = "https://s.shopee.vn/20pxqttOxH";
+
+    // Thử mở app trước
+    window.location.href = link;
+
+    // Nếu không có app thì vẫn mở web
+    setTimeout(function() {
+        window.location.href = link;
+    }, 1500);
+}
+</script>
+
 </body>
 </html>
