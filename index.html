@@ -3,43 +3,117 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Đang mở ứng dụng...</title>
+<title>Mở Shopee</title>
 
 <style>
-    body {
-        background: #000;
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        font-family: Arial, sans-serif;
-        text-align: center;
-    }
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#111;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    text-align:center;
+}
+
+.container{
+    max-width:400px;
+}
+
+button{
+    margin-top:20px;
+    padding:16px 35px;
+    border:none;
+    border-radius:40px;
+    background:#ff5722;
+    color:#fff;
+    font-size:18px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#ff3d00;
+}
+
+/* Popup */
+.popup{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    background:#222;
+    padding:20px;
+    display:none;
+    border-top-left-radius:20px;
+    border-top-right-radius:20px;
+}
+
+.popup h3{
+    margin-top:0;
+}
+
+.close{
+    margin-top:15px;
+    background:#555;
+}
 </style>
-
-<script>
-    function openApp() {
-        var appLink = "shopee://open?url=https://shope.ee/2LSodeMgzf";
-        var webLink = "https://shope.ee/2LSodeMgzf";
-
-        // Thử mở app
-        window.location.href = appLink;
-
-        // Nếu không mở được thì chuyển web
-        setTimeout(function () {
-            window.location.href = webLink;
-        }, 1500);
-    }
-
-    window.onload = openApp;
-</script>
-
 </head>
+
 <body>
 
-<h2>Đang mở ứng dụng Shopee...</h2>
-<p>Nếu không tự chuyển, vui lòng chờ hoặc bấm lại link.</p>
+<div class="container">
+    <h2>Mở Shopee</h2>
+    <p>Nhấn nút bên dưới để mở ứng dụng</p>
+    <button onclick="openApp()">MỞ SHOPEE NGAY</button>
+</div>
+
+<div class="popup" id="popup">
+    <h3>Không mở được ứng dụng?</h3>
+    <p id="guideText"></p>
+    <button class="close" onclick="closePopup()">ĐÓNG</button>
+</div>
+
+<script>
+function isIOS() {
+    return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+function isFacebookBrowser() {
+    return navigator.userAgent.includes("FBAN") || 
+           navigator.userAgent.includes("FBAV");
+}
+
+function openApp() {
+
+    var deepLink = "shopee://open?url=https://shope.ee/2LSodeMgzf";
+    var webLink = "https://shope.ee/2LSodeMgzf";
+
+    window.location.href = deepLink;
+
+    setTimeout(function(){
+        document.getElementById("popup").style.display = "block";
+
+        if(isIOS()){
+            document.getElementById("guideText").innerHTML =
+            "Nếu bạn đang mở trong Facebook, hãy bấm dấu ••• góc phải và chọn 'Mở bằng Safari'.";
+        }else{
+            document.getElementById("guideText").innerHTML =
+            "Hãy mở link bằng Chrome hoặc trình duyệt mặc định để mở ứng dụng.";
+        }
+
+        setTimeout(function(){
+            window.location.href = webLink;
+        },2000);
+
+    },2000);
+}
+
+function closePopup(){
+    document.getElementById("popup").style.display = "none";
+}
+</script>
 
 </body>
 </html>
