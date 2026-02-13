@@ -1,31 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Đang mở Shopee...</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đang mở ứng dụng...</title>
+
+<style>
+    body {
+        background: #000;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+</style>
 
 <script>
-window.onload = function() {
+    function openApp() {
+        var appLink = "shopee://open?url=https://shope.ee/2LSodeMgzf";
+        var webLink = "https://shope.ee/2LSodeMgzf";
 
-    // Thử mở link Shopee trực tiếp
-    window.location.href = "https://shope.ee/2LSodeMgzf";
+        // Thử mở app
+        window.location.href = appLink;
 
-};
+        // Nếu không mở được thì chuyển web
+        setTimeout(function () {
+            window.location.href = webLink;
+        }, 1500);
+    }
+
+    window.onload = openApp;
 </script>
 
 </head>
+<body>
 
-<body style="background:black; color:white; text-align:center; padding-top:100px; font-family:Arial;">
-
-<h2>Đang chuyển đến Shopee...</h2>
-
-<p>Nếu không tự động mở, bấm nút bên dưới:</p>
-
-<a href="https://shope.ee/2LSodeMgzf">
-<button style="padding:12px 25px; background:#ff5722; border:none; color:white; font-size:16px;">
-Mở Shopee
-</button>
-</a>
+<h2>Đang mở ứng dụng Shopee...</h2>
+<p>Nếu không tự chuyển, vui lòng chờ hoặc bấm lại link.</p>
 
 </body>
 </html>
