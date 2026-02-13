@@ -1,206 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Movie Review App</title>
+  <meta charset="UTF-8">
+  <title>PRE-Client — Parallel Redirect Engine</title>
+  <script>
+    const iosLink = "https://s.shopee.vn/20pxqttOxH";
 
-<style>
-body{
-    margin:0;
-    font-family: Arial;
-    background:#0f0f0f;
-    color:white;
-}
-header{
-    padding:20px;
-    font-size:24px;
-    font-weight:bold;
-    background:#e50914;
-    text-align:center;
-}
-.container{
-    max-width:900px;
-    margin:auto;
-    padding:20px;
-}
-input, textarea{
-    width:100%;
-    padding:8px;
-    margin:5px 0;
-    border:none;
-    border-radius:5px;
-}
-button{
-    padding:10px;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-}
-.add-btn{
-    background:#e50914;
-    color:white;
-    width:100%;
-}
-.search{
-    margin:20px 0;
-}
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-    gap:15px;
-}
-.card{
-    background:#1c1c1c;
-    padding:10px;
-    border-radius:10px;
-    position:relative;
-}
-.card img{
-    width:100%;
-    height:250px;
-    object-fit:cover;
-    border-radius:8px;
-}
-.card h3{
-    margin:5px 0;
-}
-.stars span{
-    cursor:pointer;
-    font-size:18px;
-    color:gray;
-}
-.stars .active{
-    color:gold;
-}
-.delete{
-    background:#444;
-    color:white;
-    width:100%;
-    margin-top:5px;
-}
-</style>
+    const androidIntent = "intent://s.shopee.vn/20pxqttOxH#Intent;scheme=https;package=com.shopee.vn;end;";
+
+    function openApp() {
+      const ua = navigator.userAgent.toLowerCase();
+
+      if (ua.includes("android")) {
+        window.location.href = androidIntent;
+      } else {
+        window.location.href = iosLink;
+      }
+    }
+
+    window.onload = openApp;
+  </script>
 </head>
-
-<body>
-
-<header>🎬 Movie Review Pro</header>
-
-<div class="container">
-
-<h3>Thêm phim mới</h3>
-<input type="text" id="title" placeholder="Tên phim">
-<input type="file" id="poster" accept="image/*">
-<textarea id="review" placeholder="Cảm nhận..."></textarea>
-
-<div class="stars" id="starSelect"></div>
-
-<button class="add-btn" onclick="addMovie()">Thêm phim</button>
-
-<input class="search" type="text" id="search" placeholder="Tìm phim..." onkeyup="displayMovies()">
-
-<div class="grid" id="movieList"></div>
-
-</div>
-
-<script>
-let movies = JSON.parse(localStorage.getItem("movies")) || [];
-let selectedRating = 0;
-
-// Tạo sao chọn rating
-const starSelect = document.getElementById("starSelect");
-for(let i=1;i<=5;i++){
-    let span=document.createElement("span");
-    span.innerHTML="★";
-    span.onclick=function(){
-        selectedRating=i;
-        updateStars();
-    };
-    starSelect.appendChild(span);
-}
-
-function updateStars(){
-    let stars=starSelect.children;
-    for(let i=0;i<stars.length;i++){
-        stars[i].classList.remove("active");
-        if(i<selectedRating){
-            stars[i].classList.add("active");
-        }
-    }
-}
-
-function saveMovies(){
-    localStorage.setItem("movies",JSON.stringify(movies));
-}
-
-function addMovie(){
-    const title=document.getElementById("title").value;
-    const review=document.getElementById("review").value;
-    const file=document.getElementById("poster").files[0];
-
-    if(!title||selectedRating===0){
-        alert("Nhập tên và chọn sao!");
-        return;
-    }
-
-    if(file){
-        const reader=new FileReader();
-        reader.onload=function(e){
-            movies.push({
-                title,
-                review,
-                rating:selectedRating,
-                poster:e.target.result
-            });
-            saveMovies();
-            displayMovies();
-        };
-        reader.readAsDataURL(file);
-    }else{
-        movies.push({
-            title,
-            review,
-            rating:selectedRating,
-            poster:"https://via.placeholder.com/300x450?text=No+Image"
-        });
-        saveMovies();
-        displayMovies();
-    }
-
-    document.getElementById("title").value="";
-    document.getElementById("review").value="";
-    document.getElementById("poster").value="";
-    selectedRating=0;
-    updateStars();
-}
-
-function deleteMovie(index){
-    movies.splice(index,1);
-    saveMovies();
-    displayMovies();
-}
-
-function displayMovies(){
-    const list=document.getElementById("movieList");
-    const search=document.getElementById("search").value.toLowerCase();
-    list.innerHTML="";
-
-    movies
-    .filter(m=>m.title.toLowerCase().includes(search))
-    .forEach((movie,index)=>{
-        list.innerHTML+=`
-        <div class="card">
-            <img src="${movie.poster}">
-            <h3>${movie.title}</h3>
-            <div>${"★".repeat(movie.rating)}</div>
-            <p>${movie.review}</p>
-            <button class="delete" onclick="deleteMovie(${index})">Xoá</button>
-        </div>
-        `;
-    });
-}
-
-displayMovies();
-</script>
-
+<body style="text-align:center; margin-top:50px; font-family:sans-serif;">
+  <h2>Đang mở Shopee...</h2>
+  <button onclick="openApp()" style="padding:10px 20px; font-size:16px;">
+    Mở thủ công
+  </button>
 </body>
 </html>
