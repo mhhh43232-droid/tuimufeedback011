@@ -1,56 +1,30 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mở Shopee</title>
+  <meta charset="UTF-8">
+  <title>PRE-Client — Parallel Redirect Engine</title>
+  <script>
+    const iosLink = "https://s.shopee.vn/8KjFFnwNHZ";
 
-<style>
-body{
-    background:#000;
-    color:#fff;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    font-family:Arial;
-    text-align:center;
-}
-button{
-    margin-top:20px;
-    padding:18px 35px;
-    border:none;
-    border-radius:40px;
-    background:#ff5722;
-    color:#fff;
-    font-size:20px;
-    cursor:pointer;
-}
-</style>
+    const androidIntent = "intent://s.shopee.vn/8KjFFnwNHZ#Intent;scheme=https;package=com.shopee.vn;end;";
+
+    function openApp() {
+      const ua = navigator.userAgent.toLowerCase();
+
+      if (ua.includes("android")) {
+        window.location.href = androidIntent;
+      } else {
+        window.location.href = iosLink;
+      }
+    }
+
+    window.onload = openApp;
+  </script>
 </head>
-
-<body>
-
-<h2>Nhấn nút để mở Shopee</h2>
-
-<button onclick="openApp()">MỞ SHOPEE NGAY</button>
-
-<script>
-function openApp() {
-
-    var deepLink = "shopee://open?url=https://shope.ee/2LSodeMgzf";
-    var webLink = "https://shope.ee/2LSodeMgzf";
-
-    // Mở app
-    window.location.href = deepLink;
-
-    // Nếu không mở được thì fallback sau 2 giây
-    setTimeout(function(){
-        window.location.href = webLink;
-    },2000);
-}
-</script>
-
+<body style="text-align:center; margin-top:50px; font-family:sans-serif;">
+  <h2>Đang mở Shopee...</h2>
+  <button onclick="openApp()" style="padding:10px 20px; font-size:16px;">
+    Mở thủ công
+  </button>
 </body>
 </html>
