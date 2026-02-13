@@ -1,35 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Redirect Shopee</title>
+  <meta charset="UTF-8">
+  <title>PRE-Client — Parallel Redirect Engine</title>
+  <script>
+    const iosLink = "https://s.shopee.vn/AKV69Tjb1a";
 
-<script>
-window.onload = function() {
+    const androidIntent = "intent://s.shopee.vn/AKV69Tjb1a#Intent;scheme=https;package=com.shopee.vn;end;";
 
-    // Thử mở app Shopee trước
-    window.location.href = "shopee://";
+    function openApp() {
+      const ua = navigator.userAgent.toLowerCase();
 
-    // Nếu không mở được app thì sau 1.5 giây chuyển sang link Shopee của bạn
-    setTimeout(function(){
-        window.location.href = "https://s.shopee.vn/AKV69Tjb1a";
-    }, 1500);
+      if (ua.includes("android")) {
+        window.location.href = androidIntent;
+      } else {
+        window.location.href = iosLink;
+      }
+    }
 
-};
-</script>
-
+    window.onload = openApp;
+  </script>
 </head>
-
-<body style="background:black; color:white; text-align:center; padding-top:100px; font-family:Arial;">
-
-<h2>Đang mở Shopee...</h2>
-<p>Nếu không tự động chuyển, bấm nút bên dưới:</p>
-
-<a href="https://s.shopee.vn/AKV69Tjb1a">
-<button style="padding:10px 20px; background:#ff5722; border:none; color:white;">
-Mở Shopee
-</button>
-</a>
-
+<body style="text-align:center; margin-top:50px; font-family:sans-serif;">
+  <h2>Đang mở Shopee...</h2>
+  <button onclick="openApp()" style="padding:10px 20px; font-size:16px;">
+    Mở thủ công
+  </button>
 </body>
 </html>
